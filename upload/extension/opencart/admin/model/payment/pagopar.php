@@ -1,14 +1,13 @@
 <?php
 namespace Opencart\Admin\Model\Extension\Opencart\Payment;
-/** 
+/**
  * Pagopar API 
- * Chamada $this->load->model('extension/opencart/payment/pagopar');
- * Documentação : https://soporte.pagopar.com/portal/es/kb/api
+ * Call: $this->load->model('extension/opencart/payment/pagopar');
+ * Documentation: https://soporte.pagopar.com/portal/es/kb/api
  * @package Opencart\Catalog\Model\Extension\Opencart\Payment
- * Desenvolvido por : Natan Teixeira  
- * Git : https://github.com/Nat4nT
+ * Developed by: Natan Teixeira  
+ * Git: https://github.com/Nat4nT
  */
-
 class Pagopar extends \Opencart\System\Engine\Model
 {
     private string $public_token = '';

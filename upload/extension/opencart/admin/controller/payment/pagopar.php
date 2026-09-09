@@ -2,10 +2,10 @@
 namespace Opencart\Admin\Controller\Extension\Opencart\Payment;
 /**
  * Pagopar API - Admin Controller 
- * Documentação : https://soporte.pagopar.com/portal/es/kb/api
+ * Documentation: https://soporte.pagopar.com/portal/es/kb/api
  * @package Opencart\Admin\Controller\Extension\Opencart\Payment
- * Desenvolvido por : Natan Teixeira  
- * Git : https://github.com/Nat4nT
+ * Developed by: Natan Teixeira  
+ * Git: https://github.com/Nat4nT
  */
 class Pagopar extends \Opencart\System\Engine\Controller
 {

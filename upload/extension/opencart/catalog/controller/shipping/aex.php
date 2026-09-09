@@ -1,12 +1,12 @@
 <?php
 namespace Opencart\Catalog\Model\Extension\Opencart\Shipping;
-/** 
- * AEX - Api
- * Chamada $this->load->model('extension/opencart/shipping/aex');
- * Documentação : https://soporte.pagopar.com/portal/es/kb/api
+/**
+ * AEX - API
+ * Call: $this->load->model('extension/opencart/shipping/aex');
+ * Documentation: https://soporte.pagopar.com/portal/es/kb/api
  * @package Opencart\Catalog\Model\Extension\Opencart\Shipping
- * Desenvolvido por : Natan Teixeira  
- * Git : https://github.com/Nat4nT
+ * Developed by: Natan Teixeira
+ * Git: https://github.com/Nat4nT
  */
 
 class Aex extends \Opencart\System\Engine\Model
