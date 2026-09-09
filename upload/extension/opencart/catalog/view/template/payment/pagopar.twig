@@ -1,0 +1,82 @@
+<fieldset>
+    <legend class="fs-5 mb-3">{{ text_instruction }}</legend>
+
+    <div class="mb-3">
+        <!-- Trigger do Collapse -->
+        <a class="d-inline-flex align-items-center gap-2 text-decoration-none text-dark fw-semibold collapsed mb-2"
+            data-bs-toggle="collapse" href="#selectPaymentMethod" role="button" aria-expanded="false"
+            aria-controls="selectPaymentMethod">
+
+            <span>{{ text_payment_method }}</span>
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path d="m12 15.41l5.71-5.7l-1.42-1.42l-4.29 4.3l-4.29-4.3l-1.42 1.42z" />
+            </svg>
+        </a>
+
+        <!-- Conteúdo em Collapse -->
+        <div class="collapse" id="selectPaymentMethod">
+            <div class="d-flex flex-wrap gap-2 pt-2" id="payment-methods">
+                {% for method in payment_methods %}
+                <div class="form-check p-0">
+                    <input type="radio" class="btn-check" name="payment_type" value="{{ method.value }}"
+                        id="method-{{ method.value }}" autocomplete="off">
+                    <label class="btn btn-outline-light border p-2 d-flex align-items-center justify-content-center"
+                        for="method-{{ method.value }}">
+                        <img src="{{ method.icon }}" title="{{ method.name }}" alt="{{ method.name }}" class="img-fluid"
+                            style="max-height: 40px;">
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Botão de Confirmação -->
+    <div class="d-flex justify-content-end mt-4">
+        <button type="button" id="button-confirm" class="btn btn-primary d-inline-flex align-items-center gap-2">
+            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+            <span class="btn-text">{{ button_confirm }}</span>
+        </button>
+    </div>
+</fieldset>
+
+<script type="text/javascript">
+    $('#button-confirm').on('click', function () {
+        var $btn = $(this);
+        var $spinner = $btn.find('.spinner-border');
+        let url_confirm = 'index.php?route=extension/opencart/payment/pagopar.confirm&language={{ language }}';
+
+        if ($('input[name="payment_type"]:checked').length) {
+            url_confirm += "&method_payment=" + $('input[name="payment_type"]:checked').val();
+        }
+
+        $.ajax({
+            url: url_confirm,
+            dataType: 'json',
+            beforeSend: function () {
+                $btn.prop('disabled', true);
+                $spinner.removeClass('d-none');
+            },
+            complete: function () {
+                $btn.prop('disabled', false);
+                $spinner.addClass('d-none');
+            },
+            success: function (json) {
+                $('.alert-dismissible').remove();
+
+                if (json['error']) {
+                    $('#alert').prepend('<div class="alert alert-danger alert-dismissible fade show" role="alert"><i class="fa-solid fa-circle-exclamation me-2"></i> ' + json['error'] + ' <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+                }
+
+                if (json['redirect']) {
+                    location = json['redirect'];
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
+    });
+</script>
