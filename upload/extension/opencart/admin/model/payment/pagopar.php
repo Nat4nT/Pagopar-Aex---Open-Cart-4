@@ -73,6 +73,8 @@ class Pagopar extends \Opencart\System\Engine\Model
                 `date_modified` = NOW()");
         $log_dir = DIR_LOGS . 'pagopar/';
 
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "extension` SET `extension`='opencart', `type='shipping',`code`='aex'");
+
         if (!is_dir($log_dir)) {
             mkdir($log_dir, 0755, true);
         }
